@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Friends</title>
+</head>
+<body>
+	<div class='container'>
+		<header>
+			<p>Hello {{ user.name }}</p>
+			<a href="/logout">Log Out</a>
+		</header>
+		<main>
+			<p>Here is a list of your friends:</p>
+			<table>
+				<tr>
+					<th>User ID</th>
+					<th>Alias</th>
+					<th>Action</th>
+				</tr>
+				{% if friends %}
+				{% for friend in friends%}
+				<tr>
+					<td>{{ friend.friend.id }}</td>
+					<td>{{ friend.friend.name }}</td>
+					<td>
+						<a href="friends/{{ friend.friend.id }}/viewprofile">View Profile</a>
+						<a href="friends/{{ friend.friend.id }}/removefriend">Remove as Friend</a>
+					</td>
+				</tr>
+				{% endfor %}
+				{% endif %}
+
+				{% if not friends%}
+				<tr>
+					<td>You don't have friends yet.</td>
+				</tr>
+				{% endif%}
+			</table>
+			<p>Other Users not on your friends list:</p>
+			<table>
+				<tr>
+					<th>User ID</th>
+					<th>Alias</th>
+					<th>Action</th>
+				</tr>
+				{% for notfriend in not_friends%}
+				<tr>
+					<td>{{ notfriend.id }}</td>
+					<td><a href="friends/{{ notfriend.id }}/viewprofile">{{ notfriend.name }}</a></td>
+					<td>
+						<a href="friends/{{ notfriend.id }}/addfriend">Add as a Friend</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</main>
+	</div>
+</body>
+</html>
